@@ -114,7 +114,11 @@
   text-shadow: none;
 }
 
-:where(.launcher [hidden]) {
+:where(.launcher [hidden]),
+:where(.launcher-preferences[hidden]),
+:where(.launcher-nav[hidden]),
+:where(.launcher-switch-wrapper[hidden]),
+:where(.launcher-link-wrapper[hidden]) {
   display: none !important;
 }
 
