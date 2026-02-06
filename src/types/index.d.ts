@@ -1,16 +1,17 @@
 /**
  * Accessible Astro Launcher - TypeScript Definitions
+ * @version 2.0.0
  */
 
 // Labels for internationalization
 export interface LauncherLabels {
-  /** Search input placeholder */
+  /** Search input placeholder (default: "Type to search...") */
   placeholder?: string
-  /** Text shown when no results match */
+  /** Text shown when no results match (use {query} placeholder, default: 'No results for "{query}"') */
   noResults?: string
   /** Text shown at end of results */
   endOfResults?: string
-  /** Template for results count (use {count} placeholder) */
+  /** Template for results count announcement (use {count} and {query} placeholders, default: '{count} results for "{query}"') */
   resultsCount?: string
   /** Close button label */
   close?: string
@@ -22,6 +23,8 @@ export interface LauncherLabels {
   toNavigate?: string
   /** Hint text for Escape key */
   toClose?: string
+  /** Screen reader hint for search functionality */
+  searchHint?: string
 }
 
 // Launcher component props
@@ -58,29 +61,27 @@ export interface LauncherTriggerProps {
   [key: string]: string | boolean | undefined
 }
 
-// LauncherList component props
-export interface LauncherListProps {
+// LauncherPreferences component props (fieldset wrapper for switches)
+export interface LauncherPreferencesProps {
+  /** Group label displayed as the fieldset legend */
+  label: string
   /** Additional classes to apply */
   class?: string
   /** Additional HTML attributes */
   [key: string]: string | undefined
 }
 
-// LauncherItem component props
-export interface LauncherItemProps {
-  /** Type of item: navigation (link) or action (button) */
-  type: 'navigation' | 'action'
-  /** Display label for the item */
+// LauncherSwitch component props (role="switch" toggle button)
+export interface LauncherSwitchProps {
+  /** Display label for the switch */
   label: string
-  /** URL for navigation items */
-  href?: string
-  /** Action identifier for action items */
-  onAction?: string
-  /** Initial pressed state for action items (for toggle buttons) */
-  pressed?: boolean
-  /** Additional search keywords */
+  /** Action identifier (dispatched via launcher:action event) */
+  onAction: string
+  /** Initial checked state for the switch */
+  checked?: boolean
+  /** Additional search keywords for filtering */
   keywords?: string[]
-  /** Label for the item type indicator (i18n support) - defaults to "Go to" / "Run" */
+  /** Label for the type indicator (i18n support) - defaults to "Toggle" */
   typeLabel?: string
   /** Additional classes to apply */
   class?: string
@@ -88,19 +89,37 @@ export interface LauncherItemProps {
   [key: string]: string | string[] | boolean | undefined
 }
 
-// LauncherGroup component props
-export interface LauncherGroupProps {
-  /** Group label displayed as a heading */
+// LauncherNav component props (nav wrapper for links)
+export interface LauncherNavProps {
+  /** Group label displayed as the navigation heading */
   label: string
+  /** Heading level for the navigation label (2-6) */
+  headingLevel?: 2 | 3 | 4 | 5 | 6
   /** Additional classes to apply */
   class?: string
   /** Additional HTML attributes */
-  [key: string]: string | undefined
+  [key: string]: string | number | undefined
+}
+
+// LauncherLink component props (semantic anchor element)
+export interface LauncherLinkProps {
+  /** Display label for the link */
+  label: string
+  /** URL to navigate to */
+  href: string
+  /** Additional search keywords for filtering */
+  keywords?: string[]
+  /** Label for the type indicator (i18n support) - defaults to "Go to" */
+  typeLabel?: string
+  /** Additional classes to apply */
+  class?: string
+  /** Additional HTML attributes (e.g., target, rel) */
+  [key: string]: string | string[] | undefined
 }
 
 // Custom event detail for action items
 export interface LauncherActionEventDetail {
-  /** The action identifier from the LauncherItem */
+  /** The action identifier from the LauncherSwitch */
   action: string
 }
 
@@ -143,10 +162,11 @@ declare global {
 }
 
 // Component exports
-declare const Launcher: typeof import('./src/components/launcher/Launcher.astro').default
-declare const LauncherTrigger: typeof import('./src/components/launcher/LauncherTrigger.astro').default
-declare const LauncherList: typeof import('./src/components/launcher/LauncherList.astro').default
-declare const LauncherItem: typeof import('./src/components/launcher/LauncherItem.astro').default
-declare const LauncherGroup: typeof import('./src/components/launcher/LauncherGroup.astro').default
+declare const Launcher: typeof import('../components/launcher/Launcher.astro').default
+declare const LauncherTrigger: typeof import('../components/launcher/LauncherTrigger.astro').default
+declare const LauncherPreferences: typeof import('../components/launcher/LauncherPreferences.astro').default
+declare const LauncherSwitch: typeof import('../components/launcher/LauncherSwitch.astro').default
+declare const LauncherNav: typeof import('../components/launcher/LauncherNav.astro').default
+declare const LauncherLink: typeof import('../components/launcher/LauncherLink.astro').default
 
-export { Launcher, LauncherTrigger, LauncherList, LauncherItem, LauncherGroup }
+export { Launcher, LauncherTrigger, LauncherPreferences, LauncherSwitch, LauncherNav, LauncherLink }
