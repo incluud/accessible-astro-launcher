@@ -73,7 +73,7 @@ A trigger button that opens the launcher with keyboard shortcut display.
 
 - `launcherId: string` - ID of the launcher to open (required)
 - `id?: string` - Optional trigger element ID
-- `placeholder?: string` - Placeholder text (default: "Search or use commands...")
+- `placeholder?: string` - Placeholder text (default: "Type to search...")
 - `shortcutKey?: string` - Keyboard shortcut key display (default: "K")
 - `compact?: boolean` - Compact mode without placeholder text
 - `iconOnly?: boolean` - Icon-only mode
