@@ -4,7 +4,7 @@
 
 [![Built with Astro](https://astro.badg.es/v2/built-with-astro/small.svg)](https://astro.build)
 
-A powerful, accessible command palette/launcher component for [Astro](https://astro.build) projects. Built with keyboard-driven navigation, instant search, and full WCAG 2.2 AA compliance following the WAI-ARIA combobox pattern. Features dark mode support, preference toggles integration, modular component architecture, and extensive customization through CSS custom properties.
+A powerful, accessible command palette/launcher component for [Astro](https://astro.build) projects. Built with keyboard-driven navigation, instant search, and full WCAG 2.2 AA compliance. Features semantic HTML with proper ARIA patterns (`role="switch"` for toggles, native anchors for links), dark mode support, preference toggles integration, and extensive customization through CSS custom properties.
 
 [![LIVE DEMO](https://img.shields.io/badge/LIVE_DEMO-4ECCA3?style=for-the-badge&logo=astro&logoColor=black)](https://accessible-astro-launcher.incluud.dev/) &nbsp;
 [![DOCUMENTATION](https://img.shields.io/badge/DOCUMENTATION-A682FF?style=for-the-badge&logo=astro&logoColor=black)](https://accessible-astro.incluud.dev/components/launcher) &nbsp;
@@ -18,17 +18,19 @@ A powerful, accessible command palette/launcher component for [Astro](https://as
 
 ## Features
 
-- **Accessible by default**: WAI-ARIA combobox pattern with proper roles (`combobox`, `listbox`, `option`, `group`)
+- **Accessible by default**: Semantic HTML with proper ARIA patterns (`role="switch"` for toggles, native `<a>` for links)
 - **Keyboard navigation**: Open with `Cmd/Ctrl + K`, navigate with arrow keys, select with `Enter`, close with `Escape`
-- **Screen reader support**: Live region announcements, proper labeling, and semantic structure
+- **Continuous typing**: Focus stays on input via `aria-activedescendant` - type to filter at any point while navigating
+- **Screen reader support**: Proper role announcements ("switch", "link"), live region for results count with search query
 - **Quick search**: Instant client-side fuzzy search across labels and keywords
-- **Navigation items**: Link to any page with custom icons
-- **Action items**: Toggle preferences with LED-style status indicators
+- **Navigation links**: Semantic `<a>` elements with custom icons and external link support
+- **Preference switches**: Toggle buttons with `role="switch"`, `aria-checked`, and LED-style indicators
+- **Preference toggles stay open**: Change multiple preferences without reopening the launcher
 - **Preference sync**: Automatic sync with `accessible-astro-components` toggles (DarkMode, HighContrast, ReducedMotion)
 - **Multiple triggers**: Place triggers anywhere - all open the same launcher
 - **Dark mode**: Automatic light/dark theming via `light-dark()` CSS function
 - **Customizable**: Extensive styling through `--launcher-*` CSS custom properties
-- **i18n ready**: All text labels customizable via props
+- **i18n ready**: All text labels customizable via props (including `{query}` placeholders)
 - **Zero dependencies**: Pure Astro components
 - **TypeScript**: Full type support and documentation
 
@@ -52,26 +54,38 @@ yarn add accessible-astro-launcher
 import {
   Launcher,
   LauncherTrigger,
-  LauncherList,
-  LauncherGroup,
-  LauncherItem,
+  LauncherPreferences,
+  LauncherSwitch,
+  LauncherNav,
+  LauncherLink,
 } from 'accessible-astro-launcher'
 ---
 
 <LauncherTrigger launcherId="site-launcher" />
 
 <Launcher id="site-launcher">
-  <LauncherList>
-    <LauncherGroup label="Preferences">
-      <LauncherItem type="action" onAction="toggle-dark-mode" label="Dark mode" />
-    </LauncherGroup>
-    <LauncherGroup label="Navigation">
-      <LauncherItem type="navigation" href="/" label="Home" />
-      <LauncherItem type="navigation" href="/about" label="About" />
-    </LauncherGroup>
-  </LauncherList>
+  <LauncherPreferences label="Preferences">
+    <LauncherSwitch label="Dark mode" onAction="toggle-dark-mode" />
+    <LauncherSwitch label="High contrast" onAction="toggle-high-contrast" />
+  </LauncherPreferences>
+  <LauncherNav label="Navigation">
+    <LauncherLink label="Home" href="/" />
+    <LauncherLink label="About" href="/about" />
+    <LauncherLink label="Contact" href="/contact" />
+  </LauncherNav>
 </Launcher>
 ```
+
+## Components
+
+| Component             | Description                                                  |
+| --------------------- | ------------------------------------------------------------ |
+| `Launcher`            | Main dialog with search input and results                    |
+| `LauncherTrigger`     | Button that opens the launcher (place anywhere)              |
+| `LauncherPreferences` | `<fieldset>` wrapper with `<legend>` for preference switches |
+| `LauncherSwitch`      | Toggle button with `role="switch"` and LED indicator         |
+| `LauncherNav`         | `<nav>` wrapper with heading for navigation links            |
+| `LauncherLink`        | Semantic `<a>` element with icon slot                        |
 
 ## Accessible Astro ecosystem
 
