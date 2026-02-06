@@ -74,7 +74,7 @@ const dataAttrs = {
     <span class="text">
       <span class="label">{label}</span>
     </span>
-    <span class="type" aria-hidden="true">
+    <span class="type">
       {typeLabel}
     </span>
   </button>
@@ -163,8 +163,8 @@ const dataAttrs = {
     inline-size: 100%;
     scroll-margin-block-start: calc(var(--launcher-space-xl) + var(--launcher-space-sm));
     color: var(--launcher-text-color);
-    text-align: start;
     font-family: inherit;
+    text-align: start;
   }
 
   :where(.launcher-switch[data-active]),
@@ -215,10 +215,10 @@ const dataAttrs = {
     display: block;
     position: relative;
     flex-shrink: 0;
-    margin-block-start: -1px;
     transition:
       background-color var(--launcher-animation-duration) var(--launcher-animation-timing),
       box-shadow var(--launcher-animation-duration) var(--launcher-animation-timing);
+    margin-block-start: -1px;
     border: 1px solid hsl(0deg 0% 0% / 0.25);
     border-radius: 50%;
     background: hsl(0deg 0% 40%);

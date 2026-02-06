@@ -34,14 +34,7 @@ interface Props {
   [key: string]: string | string[] | undefined
 }
 
-const {
-  label,
-  href,
-  keywords = [],
-  typeLabel = 'Go to',
-  class: className,
-  ...rest
-} = Astro.props
+const { label, href, keywords = [], typeLabel = 'Go to', class: className, ...rest } = Astro.props
 
 // Generate unique ID for the link
 const linkId = `launcher-link-${Math.random().toString(36).substring(2, 9)}`
@@ -83,7 +76,7 @@ const dataAttrs = {
     <span class="text">
       <span class="label">{label}</span>
     </span>
-    <span class="type" aria-hidden="true">
+    <span class="type">
       {typeLabel}
     </span>
   </a>
