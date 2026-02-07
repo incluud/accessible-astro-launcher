@@ -45,7 +45,7 @@ export interface LauncherTriggerProps {
   launcherId: string
   /** Optional unique identifier for this specific trigger element */
   id?: string
-  /** Placeholder text shown in the trigger */
+  /** Placeholder text shown in the trigger (default: "Search") */
   placeholder?: string
   /** The keyboard shortcut key to display (without modifier) */
   shortcutKey?: string

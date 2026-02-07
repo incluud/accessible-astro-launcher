@@ -17,7 +17,7 @@ interface Props {
   id?: string
   /**
    * Placeholder text shown in the trigger
-   * @default "Search or use commands..."
+   * @default "Search"
    */
   placeholder?: string
   /**
@@ -53,7 +53,7 @@ interface Props {
 const {
   launcherId,
   id,
-  placeholder = 'Search...',
+  placeholder = 'Search',
   shortcutKey = 'K',
   compact = false,
   iconOnly = false,
@@ -88,8 +88,7 @@ const {
           stroke="currentColor"
           stroke-width="2"
           stroke-linecap="round"
-          stroke-linejoin="round"
-        ></path>
+          stroke-linejoin="round"></path>
       </svg>
       {compact || iconOnly ? null : <span class="placeholder">{placeholder}</span>}
     </span>
