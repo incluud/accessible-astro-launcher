@@ -42,7 +42,7 @@ const HeadingTag = `h${headingLevel}` as 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   {...rest}
 >
   <HeadingTag id={navId} class="heading">{label}</HeadingTag>
-  <ul class="items">
+  <ul class="items" role="list">
     <slot />
   </ul>
 </nav>
