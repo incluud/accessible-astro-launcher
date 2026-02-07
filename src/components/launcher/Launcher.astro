@@ -83,6 +83,7 @@ const hintId = `${id}-hint`
           placeholder={placeholder}
           aria-describedby={hintId}
           aria-controls={resultsId}
+          aria-owns={resultsId}
           aria-activedescendant=""
           autocomplete="off"
           spellcheck="false"
@@ -216,6 +217,7 @@ const hintId = `${id}-hint`
    */
   let keydownController: AbortController | undefined
   let clickController: AbortController | undefined
+  let shortcutController: AbortController | undefined
 
   /**
    * Track which trigger opened the dialog for focus restoration
@@ -449,11 +451,8 @@ const hintId = `${id}-hint`
         )
       }
     } else if (isLink) {
-      const href = currentItem.dataset.href || currentItem.getAttribute('href')
-      if (href) {
-        closeLauncher(dialog)
-        window.location.href = href
-      }
+      closeLauncher(dialog)
+      currentItem.click()
     }
   }
 
@@ -546,7 +545,7 @@ const hintId = `${id}-hint`
   /**
    * Initialize a launcher instance
    */
-  const initLauncher = (dialog: HTMLDialogElement): void => {
+  const initLauncher = (dialog: HTMLDialogElement, shortcutSignal: AbortSignal): void => {
     const launcherId = dialog.id
 
     // Find all triggers that target this launcher
@@ -569,31 +568,40 @@ const hintId = `${id}-hint`
     })
 
     // Global keyboard shortcut (CMD/CTRL + K)
-    document.addEventListener('keydown', (event) => {
-      const isMac = os === 'mac'
-      const modifier = isMac ? event.metaKey : event.ctrlKey
+    document.addEventListener(
+      'keydown',
+      (event) => {
+        const isMac = os === 'mac'
+        const modifier = isMac ? event.metaKey : event.ctrlKey
 
-      if (modifier && event.key.toLowerCase() === 'k') {
-        event.preventDefault()
+        if (modifier && event.key.toLowerCase() === 'k') {
+          event.preventDefault()
 
-        if (dialog.open) {
-          closeLauncher(dialog)
-        } else {
-          // When opened via keyboard, find the first visible trigger
-          const visibleTrigger = Array.from(triggers).find((t) => {
-            const style = window.getComputedStyle(t)
-            return style.display !== 'none' && style.visibility !== 'hidden'
-          })
-          openLauncher(dialog, visibleTrigger)
+          if (dialog.open) {
+            closeLauncher(dialog)
+          } else {
+            // When opened via keyboard, find the first visible trigger
+            const visibleTrigger = Array.from(triggers).find((t) => {
+              const style = window.getComputedStyle(t)
+              return style.display !== 'none' && style.visibility !== 'hidden'
+            })
+            openLauncher(dialog, visibleTrigger)
+          }
         }
-      }
-    })
+      },
+      { signal: shortcutSignal }
+    )
 
     // Close button
     closeBtn?.addEventListener('click', () => closeLauncher(dialog))
 
+    let debounceTimer: ReturnType<typeof setTimeout> | undefined
+
     // Handle escape key (native dialog behavior, but we want to clean up)
     dialog.addEventListener('close', () => {
+      if (debounceTimer) {
+        clearTimeout(debounceTimer)
+      }
       if (input) {
         input.value = ''
       }
@@ -608,7 +616,6 @@ const hintId = `${id}-hint`
     })
 
     // Search input with debounce for performance
-    let debounceTimer: ReturnType<typeof setTimeout>
     input?.addEventListener('input', (event) => {
       const query = (event.target as HTMLInputElement).value
 
@@ -680,8 +687,10 @@ const hintId = `${id}-hint`
 
   // Initialize all launchers
   const initAllLaunchers = (): void => {
+    shortcutController?.abort()
+    shortcutController = new AbortController()
     const dialogs = document.querySelectorAll<HTMLDialogElement>('.launcher')
-    dialogs.forEach(initLauncher)
+    dialogs.forEach((dialog) => initLauncher(dialog, shortcutController!.signal))
   }
 
   // Run on load
