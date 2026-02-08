@@ -17,7 +17,7 @@ Check `package.json` for current version and dependencies.
 - **Shared styles**: Exports `index.css` with all component styles
 - **TypeScript**: Full type definitions in `src/types/index.d.ts`
 - **Modern CSS**: Uses logical properties, custom properties, `light-dark()` for theming
-- **ARIA Combobox Pattern**: Follows WAI-ARIA guidelines for command palettes
+- **ARIA Guidance**: Uses semantic HTML and minimal ARIA for command palettes
 
 ## Project Purpose
 
@@ -62,8 +62,7 @@ The main dialog component containing search input and results.
 **Props:**
 
 - `id: string` - Unique identifier (required, must match `launcherId` on triggers)
-- `labels?: LauncherLabels` - i18n labels object
-- `showASCIIArt?: boolean` - Show fun ASCII art in messages (default: false)
+- `labels?: LauncherLabels` - i18n labels object (exported type)
 - `class?: string` - Additional CSS classes
 
 ### LauncherTrigger
@@ -74,7 +73,7 @@ A trigger button that opens the launcher with keyboard shortcut display.
 
 - `launcherId: string` - ID of the launcher to open (required)
 - `id?: string` - Optional trigger element ID
-- `placeholder?: string` - Placeholder text (default: "Type to search...")
+- `placeholder?: string` - Placeholder text (default: "Search")
 - `shortcutKey?: string` - Keyboard shortcut key display (default: "K")
 - `compact?: boolean` - Compact mode without placeholder text
 - `iconOnly?: boolean` - Icon-only mode
@@ -246,7 +245,7 @@ Since this is a library package, testing happens in consuming projects:
 
 ## Accessibility Requirements
 
-This component follows **WCAG 2.2 AA** standards with ARIA combobox pattern:
+This component follows **WCAG 2.2 AA** standards with a semantic HTML approach:
 
 ### Essential Features
 
@@ -259,10 +258,8 @@ This component follows **WCAG 2.2 AA** standards with ARIA combobox pattern:
 
 2. **ARIA Implementation**:
    - Dialog with `aria-modal="true"`
-   - Input with `role="combobox"`, `aria-controls`, `aria-activedescendant`
-   - List with `role="listbox"`
-   - Items with `role="option"`, `aria-selected`
-   - Groups with `role="group"`, `aria-labelledby`
+   - Input uses `aria-controls`, `aria-owns` and `aria-activedescendant` for active item tracking
+   - Semantic fieldset/legend for preference groups
    - Live region for results count announcements
 
 3. **Focus Management**:
@@ -347,9 +344,9 @@ type(scope): subject
 
 **Examples**:
 
-- `feat(item): add typeLabel prop for i18n`
+- `feat(switch): add typeLabel prop for i18n`
 - `fix(launcher): improve search debouncing`
-- `a11y(item): enhance LED indicator contrast`
+- `a11y(switch): enhance LED indicator contrast`
 
 ## PR Instructions
 
@@ -394,7 +391,6 @@ This package is used by:
 
 - **accessible-astro-starter**: Primary consumer, showcases launcher in header
 - **accessible-astro-dashboard**: Dashboard with launcher integration
-- **accessible-astro-docs**: Documents the launcher with live examples
 
 Check each project's `package.json` to see which version they're currently using.
 
