@@ -88,6 +88,7 @@ Fieldset wrapper for preference switches.
 
 - `label: string` - Group heading text (required)
 - `class?: string` - Additional CSS classes
+- `[key: string]: string | undefined` - Additional HTML attributes to apply to the fieldset
 
 ### LauncherSwitch
 
@@ -100,6 +101,7 @@ Toggle switch item for preferences.
 - `checked?: boolean` - Initial checked state (maps to aria-checked)
 - `keywords?: string[]` - Additional search keywords
 - `class?: string` - Additional CSS classes
+- `[key: string]: string | string[] | boolean | undefined` - Additional HTML attributes to apply to the wrapper
 
 ### LauncherNav
 
@@ -110,6 +112,7 @@ Navigation wrapper with heading.
 - `label: string` - Group heading text (required)
 - `headingLevel?: 2 | 3 | 4 | 5 | 6` - Heading level (default: 3)
 - `class?: string` - Additional CSS classes
+- `[key: string]: string | number | undefined` - Additional HTML attributes to apply to the nav element
 
 **Slots:**
 
@@ -126,10 +129,13 @@ Semantic link item for navigation.
 - `keywords?: string[]` - Additional search keywords
 - `typeLabel?: string` - i18n label for type indicator (default: "Go to")
 - `class?: string` - Additional CSS classes
+- `[key: string]: string | string[] | undefined` - Additional HTML attributes to apply to the anchor (e.g., target, rel, aria-*)
 
 **Slots:**
 
 - `icon` - Custom icon for navigation items
+
+Extra attributes passed to `LauncherLink` are forwarded to the rendered anchor element.
 
 ## Dev Environment Setup
 
