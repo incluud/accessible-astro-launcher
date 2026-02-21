@@ -1,5 +1,4 @@
----
-name: "prepare-release"
+name: Prepare Release
 
 on:
   push:
@@ -8,13 +7,11 @@ on:
 
 jobs:
   pre-release:
-    name: "Prepare Release"
     runs-on: "ubuntu-latest"
-
     steps:
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - uses: softprops/action-gh-release@v2.5.0
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
           prerelease: true
           title: "Next Release"
+
+  
