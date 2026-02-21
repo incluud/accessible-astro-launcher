@@ -32,3 +32,4 @@ jobs:
           tag_name: latest
           prerelease: true
           name: "Next Release"
+
