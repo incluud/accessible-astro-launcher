@@ -17,18 +17,18 @@ jobs:
         with:
           fetch-depth: 0
       
-      # - name: Generate and push tag
-      #   id: tag
-      #   run: |
-      #     TAG="latest"
-      #     git config user.name github-actions
-      #     git config user.email github-actions@github.com
-      #     git tag -f $TAG
-      #     git push origin $TAG -f
-      #     echo "tag=$TAG" >> $GITHUB_OUTPUT
+      - name: Generate and push tag
+        id: tag
+        run: |
+          TAG="latest"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git tag -f $TAG
+          git push origin $TAG -f
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
       
       - uses: softprops/action-gh-release@v2.5.0
         with:
-          tag_name: latest
+          tag_name: ${{ steps.tag.outputs.tag }}
           prerelease: true
           name: "Next Release"
