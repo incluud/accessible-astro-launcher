@@ -2,8 +2,8 @@ name: Prepare Release
 
 on:
   push:
-    branches:
-      - "main"
+    tags:
+      - "v*"
 
 jobs:
   pre-release:
@@ -15,5 +15,3 @@ jobs:
         with:
           prerelease: true
           name: "Next Release"
-
-  
