@@ -12,6 +12,6 @@ jobs:
   draft-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: release-drafter/release-drafter@v7
+      - uses: release-drafter/release-drafter@v6
         with:
           draft: true
