@@ -14,12 +14,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        
-      - name: Generate release notes
+
+      - name: Generate release changelog
         uses: janheinrichmerker/action-github-changelog-generator@v2.3
       
       - uses: softprops/action-gh-release@v2.5.0
         with:
-          # tag_name: ${{ steps.tag.outputs.tag }}
+          body: ${{ steps.generate-changelog.outputs.changelog }}
           draft: true
           name: "Next Release"
