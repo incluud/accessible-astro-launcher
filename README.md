@@ -18,6 +18,8 @@ A powerful, accessible command palette/launcher component for [Astro](https://as
 
 ## Features
 
+
+
 - **Accessible by default**: Semantic HTML with proper ARIA patterns (`role="switch"` for toggles, native `<a>` for links)
 - **Keyboard navigation**: Open with `Cmd/Ctrl + K`, navigate with arrow keys, select with `Enter`, close with `Escape`
 - **Continuous typing**: Focus stays on input via `aria-activedescendant` - type to filter at any point while navigating
