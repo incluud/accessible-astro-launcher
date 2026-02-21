@@ -1,4 +1,4 @@
-name: Prepare Release
+name: Draft Release
 
 on:
   push:
@@ -10,21 +10,8 @@ permissions:
 
 jobs:
   draft-release:
-    runs-on: "ubuntu-latest"
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Generate changelog
-        id: generate-changelog
-        uses: janheinrichmerker/action-github-changelog-generator@v2.3
-      
-      - uses: softprops/action-gh-release@v2.5.0
+      - uses: release-drafter/release-drafter@v7
         with:
-          body: ${{ steps.generate-changelog.outputs.changelog }}
           draft: true
-          name: "Next Release"
-      
-      - name: Echo release notes
-        run: echo "${{ steps.generate-changelog.outputs.changelog }}"
-        
