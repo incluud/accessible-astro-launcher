@@ -6,7 +6,9 @@
  * Uses semantic HTML structure for accessibility.
  */
 
-interface Props {
+import type { HTMLAttributes } from 'astro/types'
+
+interface Props extends HTMLAttributes<'fieldset'> {
   /**
    * Group label displayed as the fieldset legend
    */
@@ -15,10 +17,6 @@ interface Props {
    * Additional classes to apply
    */
   class?: string
-  /**
-   * HTML attributes to spread on the fieldset
-   */
-  [key: string]: string | undefined
 }
 
 const { label, class: className, ...rest } = Astro.props

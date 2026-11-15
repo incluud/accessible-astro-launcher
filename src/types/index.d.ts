@@ -3,6 +3,8 @@
  * @version 2.0.0
  */
 
+import type { HTMLAttributes } from 'astro/types'
+
 // Labels for internationalization
 export interface LauncherLabels {
   /** Search input placeholder (default: "Type to search...") */
@@ -28,15 +30,13 @@ export interface LauncherLabels {
 }
 
 // Launcher component props
-export interface LauncherProps {
+export interface LauncherProps extends HTMLAttributes<'dialog'> {
   /** Unique identifier for this launcher (must match launcherId on LauncherTrigger components) */
   id: string
   /** i18n labels for the launcher UI */
   labels?: LauncherLabels
   /** Additional classes to apply to the dialog */
   class?: string
-  /** Additional HTML attributes */
-  [key: string]: string | LauncherLabels | boolean | undefined
 }
 
 // LauncherTrigger component props
@@ -62,13 +62,11 @@ export interface LauncherTriggerProps {
 }
 
 // LauncherPreferences component props (fieldset wrapper for switches)
-export interface LauncherPreferencesProps {
+export interface LauncherPreferencesProps extends HTMLAttributes<'fieldset'> {
   /** Group label displayed as the fieldset legend */
   label: string
   /** Additional classes to apply */
   class?: string
-  /** Additional HTML attributes */
-  [key: string]: string | undefined
 }
 
 // LauncherSwitch component props (role="switch" toggle button)
@@ -90,15 +88,13 @@ export interface LauncherSwitchProps {
 }
 
 // LauncherNav component props (nav wrapper for links)
-export interface LauncherNavProps {
+export interface LauncherNavProps extends HTMLAttributes<'nav'> {
   /** Group label displayed as the navigation heading */
   label: string
   /** Heading level for the navigation label (2-6) */
   headingLevel?: 2 | 3 | 4 | 5 | 6
   /** Additional classes to apply */
   class?: string
-  /** Additional HTML attributes */
-  [key: string]: string | number | undefined
 }
 
 // LauncherLink component props (semantic anchor element)

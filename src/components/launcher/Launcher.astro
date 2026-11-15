@@ -9,6 +9,8 @@
  * Supports multiple triggers via the LauncherTrigger component's launcherId prop.
  */
 
+import type { HTMLAttributes } from 'astro/types'
+
 interface Labels {
   placeholder?: string
   noResults?: string
@@ -22,7 +24,7 @@ interface Labels {
   searchHint?: string
 }
 
-interface Props {
+interface Props extends HTMLAttributes<'dialog'> {
   /**
    * Unique identifier for this launcher (must match launcherId on LauncherTrigger components)
    */
@@ -35,10 +37,6 @@ interface Props {
    * Additional classes to apply to the dialog
    */
   class?: string
-  /**
-   * HTML attributes to spread on the dialog
-   */
-  [key: string]: string | Labels | boolean | undefined
 }
 
 const { id, labels = {}, class: className, ...rest } = Astro.props
