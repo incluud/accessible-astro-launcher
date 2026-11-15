@@ -1,7 +1,7 @@
 {
   "name": "accessible-astro-launcher",
   "description": "An accessible and powerful launcher (command palette) for Astro websites, built with WCAG compliance and inclusive design principles.",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Incluud",
   "license": "MIT",
   "type": "module",
