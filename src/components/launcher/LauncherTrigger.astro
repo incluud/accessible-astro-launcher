@@ -89,9 +89,17 @@ const {
           stroke-linecap="round"
           stroke-linejoin="round"></path>
       </svg>
-      {/* The accessible name is built from content ("Search Ctrl K") so it always contains the visible text (WCAG 2.5.3) */}
+      {
+        /* The accessible name is built from content ("Search Ctrl K") so it always contains the visible text (WCAG 2.5.3) */
+      }
       <span class="sr-only">{placeholder}</span>
-      {compact || iconOnly ? null : <span class="placeholder" aria-hidden="true">{placeholder}</span>}
+      {
+        compact || iconOnly ? null : (
+          <span class="placeholder" aria-hidden="true">
+            {placeholder}
+          </span>
+        )
+      }
     </span>
     {
       !iconOnly ? (
