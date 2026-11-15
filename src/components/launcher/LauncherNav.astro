@@ -6,7 +6,9 @@
  * Uses semantic HTML structure for accessibility.
  */
 
-interface Props {
+import type { HTMLAttributes } from 'astro/types'
+
+interface Props extends HTMLAttributes<'nav'> {
   /**
    * Group label displayed as the navigation heading
    */
@@ -20,10 +22,6 @@ interface Props {
    * Additional classes to apply
    */
   class?: string
-  /**
-   * HTML attributes to spread on the nav element
-   */
-  [key: string]: string | number | undefined
 }
 
 const { label, headingLevel = 3, class: className, ...rest } = Astro.props
