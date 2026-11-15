@@ -71,7 +71,6 @@ const {
     class:list={[compact && 'compact', iconOnly && 'icon-only']}
     aria-haspopup="dialog"
     data-launcher-target={launcherId}
-    aria-label={placeholder}
     {...rest}
   >
     <span class="wrapper">
@@ -90,7 +89,9 @@ const {
           stroke-linecap="round"
           stroke-linejoin="round"></path>
       </svg>
-      {compact || iconOnly ? null : <span class="placeholder">{placeholder}</span>}
+      {/* The accessible name is built from content ("Search Ctrl K") so it always contains the visible text (WCAG 2.5.3) */}
+      <span class="sr-only">{placeholder}</span>
+      {compact || iconOnly ? null : <span class="placeholder" aria-hidden="true">{placeholder}</span>}
     </span>
     {
       !iconOnly ? (
